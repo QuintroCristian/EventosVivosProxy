@@ -24,10 +24,8 @@ public class EventosVivosDbContext : DbContext
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Titulo).IsRequired().HasMaxLength(100);
             entity.Property(e => e.Descripcion).HasMaxLength(500);
-            entity.Property(e => e.Precio).HasColumnType("decimal(18,2)");
             // Backing field para Estado calculado: se persiste el enum como int
             entity.Property<EstadoEvento>("_estadoBase")
-                  .HasColumnName("EstadoBase")
                   .IsRequired()
                   .HasConversion<int>();
             entity.Ignore(e => e.Estado);

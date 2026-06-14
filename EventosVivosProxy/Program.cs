@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Base de datos SQLite
+// 1. Base de datos en memoria
 builder.Services.AddDbContext<EventosVivosDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseInMemoryDatabase("EventosVivosDB"));
 
 // 2. Inyección de dependencias
 builder.Services.AddScoped<IEventoRepository, EventoRepository>();
@@ -38,8 +38,8 @@ var app = builder.Build();
 
 //if (app.Environment.IsDevelopment())
 //{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 //}
 
 //app.UseCors("AllowAngular");
