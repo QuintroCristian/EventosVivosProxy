@@ -1,3 +1,6 @@
 <Solution>
+  <Project Path="EventosVivos.Domain/EventosVivos.Domain.csproj" />
+  <Project Path="EventosVivos.Application/EventosVivos.Application.csproj" />
+  <Project Path="EventosVivos.Infrastructure/EventosVivos.Infrastructure.csproj" />
   <Project Path="EventosVivosProxy/EventosVivosProxy.csproj" />
 </Solution>
