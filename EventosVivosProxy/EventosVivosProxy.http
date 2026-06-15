@@ -1,6 +1,117 @@
-@EventosVivosProxy_HostAddress = http://localhost:5288
+@host = http://localhost:5200
 
-GET {{EventosVivosProxy_HostAddress}}/weatherforecast/
+### ─────────────────────────────────────────
+### RF-02 | ListarEventos
+### ─────────────────────────────────────────
+GET {{host}}/api/eventos
+Accept: application/json
+
+###
+
+### ─────────────────────────────────────────
+### RF-02 | ObtenerEvento — ID: 1
+### ─────────────────────────────────────────
+GET {{host}}/api/eventos/1
+Accept: application/json
+
+###
+
+### ─────────────────────────────────────────
+### RF-01 | CrearEvento — Conferencia (día hábil)
+###  RN-01: capacidadMaxima == VenueCapacidad  → pasa
+###  RN-03: fecha de semana (lunes) a las 18:00 → pasa
+###  Título  : 5-100 caracteres               → pasa
+###  Descripción: 10-500 caracteres           → pasa
+###  Precio  : > 0                            → pasa
+###  FechaFin: posterior a FechaInicio        → pasa
+### ─────────────────────────────────────────
+POST {{host}}/api/eventos
+Content-Type: application/json
+
+{
+  "titulo": "Cumbre de Innovación Tecnológica 2025",
+  "descripcion": "Conferencia anual sobre tendencias en inteligencia artificial, cloud computing y desarrollo de software moderno.",
+  "fechaInicio": "2025-09-15T18:00:00Z",
+  "fechaFin":    "2025-09-15T22:00:00Z",
+  "tipo": 0,
+  "estado": 0,
+  "venueNombre": "Centro de Convenciones Nacional",
+  "venueCiudad": "Bogotá",
+  "capacidadMaxima": 300,
+  "precio": 120.00
+}
+
+###
+
+### ─────────────────────────────────────────
+### RF-01 | CrearEvento — Taller (día hábil, precio ≤ 100)
+### ─────────────────────────────────────────
+POST {{host}}/api/eventos
+Content-Type: application/json
+
+{
+  "titulo": "Taller Práctico de Clean Architecture",
+  "descripcion": "Sesión práctica para implementar arquitectura limpia en proyectos .NET con ejemplos reales de dominio.",
+  "fechaInicio": "2025-10-20T09:00:00Z",
+  "fechaFin":    "2025-10-20T17:00:00Z",
+  "tipo": 1,
+  "estado": 0,
+  "venueNombre": "Sala de Formación TechHub",
+  "venueCiudad": "Medellín",
+  "capacidadMaxima": 50,
+  "precio": 75.00
+}
+
+###
+
+### ─────────────────────────────────────────
+### RF-01 | CrearEvento — Concierto (sábado antes de las 22:00)
+###  RN-03: sábado a las 20:00 → pasa (límite es 22:00)
+### ─────────────────────────────────────────
+POST {{host}}/api/eventos
+Content-Type: application/json
+
+{
+  "titulo": "Noche de Jazz en Vivo 2025",
+  "descripcion": "Concierto de jazz en vivo con artistas locales e internacionales en un ambiente íntimo y exclusivo.",
+  "fechaInicio": "2025-09-20T20:00:00Z",
+  "fechaFin":    "2025-09-20T23:30:00Z",
+  "tipo": 2,
+  "estado": 0,
+  "venueNombre": "Teatro Metropolitan",
+  "venueCiudad": "Cali",
+  "capacidadMaxima": 500,
+  "precio": 95.00
+}
+
+###
+
+### ─────────────────────────────────────────
+### ActualizarEvento — ID: 1
+### ─────────────────────────────────────────
+PUT {{host}}/api/eventos/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "titulo": "Cumbre de Innovación Tecnológica 2025 — Edición Especial",
+  "descripcion": "Edición especial ampliada con nuevos ponentes internacionales sobre IA generativa y arquitecturas cloud-native.",
+  "fechaInicio": "2025-09-15T18:00:00Z",
+  "fechaFin":    "2025-09-16T00:00:00Z",
+  "tipo": 0,
+  "estado": 0,
+  "venueNombre": "Centro de Convenciones Nacional",
+  "venueCiudad": "Bogotá",
+  "capacidadMaxima": 300,
+  "precio": 150.00
+}
+
+###
+
+### ─────────────────────────────────────────
+### EliminarEvento — ID: 1
+### ─────────────────────────────────────────
+DELETE {{host}}/api/eventos/1
 Accept: application/json
 
 ###
