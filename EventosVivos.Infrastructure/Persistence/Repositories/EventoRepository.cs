@@ -24,6 +24,7 @@ public class EventoRepository : IEventoRepository
     {
         _context.Eventos.Add(evento);
         await _context.SaveChangesAsync();
+        await _context.Entry(evento).Reference(e => e.Venue).LoadAsync();
         return evento;
     }
 

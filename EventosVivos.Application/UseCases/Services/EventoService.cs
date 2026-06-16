@@ -32,7 +32,8 @@ public class EventoService : IEventoService
     {
         var evento = MapToEntity(dto);
         var creado = await _eventoRepository.AddAsync(evento);
-        return MapToDto(creado);
+        var Venue = await _eventoRepository.GetByIdAsync(creado.Id);
+        return MapToDto(Venue!);
     }
 
 
@@ -68,6 +69,7 @@ public class EventoService : IEventoService
         FechaFin = evento.FechaFin,
         Tipo = evento.Tipo,
         Estado = evento.Estado,
+        VenueId= evento.VenueId,
         VenueNombre = evento.Venue?.Nombre ?? string.Empty,
         VenueCiudad = evento.Venue?.Ciudad ?? string.Empty,
         CapacidadMaxima = evento.CapacidadMaxima,
@@ -79,8 +81,9 @@ public class EventoService : IEventoService
         // Para actualizaciones, se necesita acceder al Venue real; aquí se construye
         // un Venue temporal con la capacidad del dto para satisfacer el constructor.
         // En un escenario real, el servicio debería recibir un DTO de creación separado.
-        var venueTemp = new Venue(0, dto.VenueNombre, dto.CapacidadMaxima, dto.VenueCiudad);
-        return new Evento(dto.Titulo, dto.Descripcion, venueTemp,
+        var venue = new Venue(dto.VenueId, dto.VenueNombre, dto.CapacidadMaxima, dto.VenueCiudad);
+        //var venueTemp = new Venue(0, dto.VenueNombre, dto.CapacidadMaxima, dto.VenueCiudad);
+        return new Evento(dto.Titulo, dto.Descripcion, venue,
                           dto.CapacidadMaxima, dto.FechaInicio, dto.FechaFin,
                           dto.Precio, dto.Tipo);
     }

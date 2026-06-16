@@ -11,6 +11,7 @@ public class EventoResponseDto
     public DateTime FechaFin { get; set; }
     public TipoEvento Tipo { get; set; }
     public EstadoEvento Estado { get; set; }
+    public int VenueId { get; set; }
     public string VenueNombre { get; set; } = string.Empty;
     public string VenueCiudad { get; set; } = string.Empty;
     public int CapacidadMaxima { get; set; }
