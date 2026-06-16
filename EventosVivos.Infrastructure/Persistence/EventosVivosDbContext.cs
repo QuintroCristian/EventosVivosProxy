@@ -55,10 +55,9 @@ public class EventosVivosDbContext : DbContext
 
         // Seed: Venues iniciales para pruebas
         modelBuilder.Entity<Venue>().HasData(
-            new Venue(1, "Plaza Mayor",                             3000, "Medellín"),
-            new Venue(2, "Teatro Metropolitano",                    1634, "Medellín"),
-            new Venue(3, "Centro de Eventos Valle del Pacífico",    2500, "Cali"),
-            new Venue(4, "Auditorio Principal",                      150, "Bogotá")
+            new Venue(1, "Auditorio Central",200, "Bogotá"),
+            new Venue(2, "Sala Norte",50, "Bogotá"),
+            new Venue(3, "Arena Sur", 500, "Medellín")
         );
     }
 }

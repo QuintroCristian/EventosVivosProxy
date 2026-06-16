@@ -18,6 +18,7 @@ builder.Services.AddDbContext<EventosVivosDbContext>(options =>
 // 2. Inyección de dependencias
 builder.Services.AddScoped<IEventoRepository, EventoRepository>();
 builder.Services.AddScoped<IReservaRepository, ReservaRepository>();
+builder.Services.AddScoped<IVenueRepository, VenueRepository>();
 builder.Services.AddScoped<IEventoService, EventoService>();
 builder.Services.AddScoped<IReservaService, ReservaService>();
 
@@ -61,31 +62,31 @@ using (var scope = app.Services.CreateScope())
     // Seed de Eventos (la BD InMemory se vacía con cada sesión de depuración)
     if (!db.Eventos.Any())
     {
-        var plaza     = db.Venues.First(v => v.Id == 1); // Plaza Mayor        — cap: 3000
-        var teatro    = db.Venues.First(v => v.Id == 2); // Teatro Metropolitano — cap: 1634
-        var auditorio = db.Venues.First(v => v.Id == 4); // Auditorio Principal  — cap: 150
+        var auditorio = db.Venues.First(v => v.Id == 1); // Auditorio Central — cap: 200
+        var salaNorte = db.Venues.First(v => v.Id == 2); // Sala Norte        — cap: 50
+        var arenaSur  = db.Venues.First(v => v.Id == 3); // Arena Sur         — cap: 500
 
         var baseDate = DateTime.UtcNow.Date.AddDays(30);
 
         db.Eventos.AddRange(
             new Evento(
-                "Cumbre de Innovación Tecnológica 2025",
+                "Cumbre de Innovación Tecnológica 2026",
                 "Conferencia anual sobre tendencias en IA, cloud computing y desarrollo de software moderno.",
-                plaza, 300,
+                auditorio, 200,
                 baseDate.AddHours(18), baseDate.AddHours(22),
                 120.00m, TipoEvento.Conferencia),
 
             new Evento(
                 "Taller Práctico de Clean Architecture",
                 "Sesión práctica para implementar arquitectura limpia en proyectos .NET con ejemplos reales.",
-                auditorio, 50,
+                salaNorte, 50,
                 baseDate.AddDays(5).AddHours(9), baseDate.AddDays(5).AddHours(17),
                 75.00m, TipoEvento.Taller),
 
             new Evento(
-                "Noche de Jazz en Vivo 2025",
+                "Noche de Jazz en Vivo 2026",
                 "Concierto de jazz con artistas locales e internacionales en un ambiente íntimo y exclusivo.",
-                teatro, 500,
+                arenaSur, 500,
                 baseDate.AddDays(10).AddHours(20), baseDate.AddDays(10).AddHours(23),
                 95.00m, TipoEvento.Concierto)
         );
