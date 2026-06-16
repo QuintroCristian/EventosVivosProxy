@@ -321,5 +321,4 @@ EventosVivosProxy/
 
 - **Persistencia efímera:** al ser InMemory, los datos se pierden con cada reinicio. Esto es intencional para facilitar pruebas limpias y repetibles.  
 - **Certificado HTTPS en desarrollo:** si el navegador rechaza el certificado, ejecutar `dotnet dev-certs https --trust` y reiniciar el navegador.  
-- **CORS:** la política `AllowAll` está pensada para entornos de desarrollo. Para producción, reemplazar por `WithOrigins("https://tu-dominio.com")`.  
 - **XML Documentation:** el proyecto genera el archivo XML de comentarios durante la compilación, habilitando las descripciones completas en Swagger automáticamente.
