@@ -8,10 +8,12 @@ namespace EventosVivos.Application.UseCases.Services;
 public class EventoService : IEventoService
 {
     private readonly IEventoRepository _eventoRepository;
+    private readonly IVenueRepository _venueRepository;
 
-    public EventoService(IEventoRepository eventoRepository)
+    public EventoService(IEventoRepository eventoRepository, IVenueRepository venueRepository)
     {
         _eventoRepository = eventoRepository;
+        _venueRepository = venueRepository;
     }
 
     public async Task<IEnumerable<EventoResponseDto>> GetAllAsync()
@@ -44,6 +46,18 @@ public class EventoService : IEventoService
 
     public async Task EliminarAsync(int id) =>
         await _eventoRepository.DeleteAsync(id);
+
+    public async Task<IEnumerable<VenueDto>> GetVenuesAsync()
+    {
+        var venues = await _venueRepository.GetAllAsync();
+        return venues.Select(v => new VenueDto
+        {
+            Id = v.Id,
+            Nombre = v.Nombre,
+            Capacidad = v.Capacidad,
+            Ciudad = v.Ciudad
+        });
+    }
 
     private static EventoResponseDto MapToDto(Evento evento) => new()
     {

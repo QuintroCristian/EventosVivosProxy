@@ -92,6 +92,25 @@ public class EventosController : ControllerBase
         return Ok(eventos);
     }
 
+    /// <summary>Lista los lugares de eventos disponibles (Venues).</summary>
+    /// <remarks>
+    /// Devuelve los venues de referencia con ID, nombre, capacidad y ciudad.
+    ///
+    /// | ID | Nombre             | Capacidad | Ciudad   |
+    /// |----|--------------------|-----------|----------|
+    /// | 1  | Auditorio Central  | 200       | Bogotá   |
+    /// | 2  | Sala Norte         | 50        | Bogotá   |
+    /// | 3  | Arena Sur          | 500       | Medellín |
+    /// </remarks>
+    [HttpGet("Venues")]
+    [SwaggerOperation(Summary = "Lista los lugares de eventos (Venues)", OperationId = "Venues", Tags = new[] { "Eventos" })]
+    [SwaggerResponse(200, "Lista de venues.", typeof(IEnumerable<VenueDto>))]
+    public async Task<IActionResult> Venues()
+    {
+        var venues = await _eventoService.GetVenuesAsync();
+        return Ok(venues);
+    }
+
     /// <summary>Actualiza los datos de un evento existente.</summary>
     /// <remarks>
     /// Reemplaza todos los campos del evento indicado.
